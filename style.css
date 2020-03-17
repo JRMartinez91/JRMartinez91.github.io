@@ -71,7 +71,7 @@
     margin: 0 2% 0 2%;
     margin-bottom: 10px;
     border: 15px solid transparent; 
-    border-image: url(Images/chrome-border-2.png) 33% stretch; 
+    border-image: url(images/chrome-border-2.png) 33% stretch; 
     border-radius: 15px;
 }
 
