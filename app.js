@@ -61,11 +61,15 @@ class Track{
     parseTrack(n) {
         let titleCard = document.createElement('div');
         titleCard.classList.add("title-card");
-        titleCard.innerHTML=`<div class="tc-sub-box">
+        titleCard.setAttribute("onclick",`jukebox.select(${n})`);
+        /*titleCard.innerHTML=`<div class="tc-sub-box">
             <h2 class=\'song-title\'>${this.title}</h2>
             <button class="deleteButton" onclick="deleteTrack(${n})">DELETE</button>
             </div>
-            <button class="selectButton" onclick=\'jukebox.select(${n})\'>${buttonImg}</button>`;
+            <button class="selectButton" onclick=\'jukebox.select(${n})\'>${buttonImg}</button>`;*/
+            titleCard.innerHTML=`
+            <h2 class=\'song-title\'>${this.title}</h2>
+            <button class="deleteButton" onclick="deleteTrack(${n})">DELETE</button>`;
         return titleCard;
     }
 
@@ -153,8 +157,23 @@ class Jukebox{
         const genreTitle = document.createElement('h3');
         genreTitle.classList.add('genre-title');
         genreTitle.innerText = titleStyling(this.genreList[n]);
-        //stick the title into the outer box
-        genreBox.appendChild(genreTitle)
+        //create the genre-lable flexbox
+        const glb = document.createElement('div')
+        glb.classList.add('genre-label-box')
+        //create three pieces of the genre-label inside it
+        const leftBox = document.createElement('div')
+        leftBox.classList.add('genre-label-left')
+        glb.appendChild(leftBox)
+            //stick the title in the center piece
+        const centerBox = document.createElement('div')
+        centerBox.classList.add('genre-label-center')
+        centerBox.appendChild(genreTitle);
+        glb.appendChild(centerBox);
+        const rightBox = document.createElement('div')
+        rightBox.classList.add('genre-label-right')
+        glb.appendChild(rightBox)
+        //
+        genreBox.appendChild(glb)
         //generate the inner box to hold the title cards
         const innerBox = document.createElement('div');
         innerBox.classList.add('inner-box');
@@ -484,11 +503,17 @@ if(savedJB.getItem('JB')){
 ////////////////////////////////////
 
 const addTestTracks = () =>{
-jukebox.addTrack(new Track("Beezlebub","https://www.youtube.com/watch?v=P209Z6Io1zc","Horror"));
-jukebox.addTrack(new Track("Beezlebub Again","https://www.youtube.com/watch?v=P209Z6Io1zc","Horror"));
-jukebox.addTrack(new Track("Beezlebub A Third Time","https://www.youtube.com/watch?v=P209Z6Io1zc","Horror"));
-jukebox.addTrack(new Track("Totally not Beezlebub","https://www.youtube.com/watch?v=P209Z6Io1zc","Caves"));
-jukebox.addTrack(new Track("Drowning in the Sewer","https://www.youtube.com/watch?v=u0ZTcAOP9kk&t=516s","DarkChill"));
+jukebox.addTrack(new Track("Dark Ambiance Cave Sounds","https://www.youtube.com/watch?v=kxqJuc1HHbg","Dark Ambiance"));
+jukebox.addTrack(new Track("Dark Dungeon Music","https://www.youtube.com/watch?v=noZJARt6uuQ","Dark Ambiance"));
+jukebox.addTrack(new Track("Abandoned Castles","https://www.youtube.com/watch?v=MwToTZc9qOk","Dark Ambiance"));
+    
+    jukebox.addTrack(new Track("Instrumental Celtic Music","https://www.youtube.com/watch?v=EukQ6VvwhHQ","Fantasy Ambience"));
+    jukebox.addTrack(new Track("Ambient Fantasy Music","https://www.youtube.com/watch?v=RQcLIm-s75U","Fantasy Ambience"));
+    jukebox.addTrack(new Track("Medieval Folk Music","https://www.youtube.com/watch?v=Yf1nWoxQQSY","Fantasy Ambience"));
+    
+    jukebox.addTrack(new Track("Mad Moxxi's Underdome: Boss Wave","https://www.youtube.com/watch?v=1WC-MOIwBTw","Boss Battle Music"));
+    jukebox.addTrack(new Track("Payday 2: Ode to Greed","https://www.youtube.com/watch?v=LzPgtzvD88k","Boss Battle Music"));
+    jukebox.addTrack(new Track("One Winged Angel","https://www.youtube.com/watch?v=t7wJ8pE2qKU","Boss Battle Music"));
 jukebox.createGenreList();
 buildPage();
 }
